@@ -1,0 +1,1177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://carrierate.com/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://carrierate.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Services offered by carrierrate.com.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://carrierate.com/">
+      <s:element name="RateMyShipment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="quoteInfo" type="tns:QuoteInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="quoteItems" type="tns:ArrayOfQuoteItemsInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="QuoteInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ShipperUserNameWithCarrierRate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipperPasswordWithCarrierRate" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ShipmentRequestDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipmentOriginZip" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipmentDestinationZip" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ShipmentPickupService" type="tns:PickupTypes" />
+          <s:element minOccurs="1" maxOccurs="1" name="ShipmentDropoffService" type="tns:DropoffTypes" />
+          <s:element minOccurs="1" maxOccurs="1" name="ShipmentExtraService" type="tns:ExtraServices" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsTradeShow" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsSortnSegregate" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsInsidePickup" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsExtremeLength" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ExtremeLength" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ExtremeLengthBundleCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="isInsuranceRequired" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="isNewItem" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="RequiredInsuranceAmount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="NonCommercialDeliveryType" type="tns:NonCommercialDeliveryTypes" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsProtectFromFreeze" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="PickupTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="Liftgate" />
+          <s:enumeration value="Residential" />
+          <s:enumeration value="Both" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="DropoffTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="Liftgate" />
+          <s:enumeration value="Residential" />
+          <s:enumeration value="Both" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="ExtraServices">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="InsideDelivery" />
+          <s:enumeration value="Notify" />
+          <s:enumeration value="All" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="NonCommercialDeliveryTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="Airport" />
+          <s:enumeration value="ConstructionUtilitySite" />
+          <s:enumeration value="CorrectionalFacility" />
+          <s:enumeration value="MilitaryBase" />
+          <s:enumeration value="PiersWharves" />
+          <s:enumeration value="StorageFacility" />
+          <s:enumeration value="Church" />
+          <s:enumeration value="Farm" />
+          <s:enumeration value="School" />
+          <s:enumeration value="Ranch" />
+          <s:enumeration value="CountryClub" />
+          <s:enumeration value="ShoppingMall" />
+          <s:enumeration value="MinesQuarries" />
+          <s:enumeration value="GolfCourse" />
+          <s:enumeration value="NursingHomes" />
+          <s:enumeration value="GovernmentSite" />
+          <s:enumeration value="ContainerFreightStation" />
+          <s:enumeration value="Hotel" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfQuoteItemsInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="QuoteItemsInfo" nillable="true" type="tns:QuoteItemsInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="QuoteItemsInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="FAKClass" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemWeight" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemHeight" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemLength" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemWidth" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="PackageTypeName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PackageTypeId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProductId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemNmfc" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Hazardous" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pieces" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PieceDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PalletCount" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RateMyShipmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RateMyShipmentResult" type="tns:ArrayOfQuoteRates" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfQuoteRates">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="QuoteRates" nillable="true" type="tns:QuoteRates" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="QuoteRates">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierCodeId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="InitialAmount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="CrossBorderFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="DiscountedAmount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalLiftGateFeeForShipment" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="TotalResidentialFeeForShipment" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="InsideDeliveryFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="InsidePickupFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="SortnSegregateFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ExtremeLength" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="TradeShowFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="WeightInspectionFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="NotifyPriorToArrivalFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="NonCommercialDeliveryFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="InsuranceFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="SingleShipmentFeeCustomer" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="FuelSurcharge" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="FinalBillAmount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="OriginCarrierLocation" type="tns:CarrierAddress" />
+          <s:element minOccurs="1" maxOccurs="1" name="DestinationCarrierLocation" type="tns:CarrierAddress" />
+          <s:element minOccurs="1" maxOccurs="1" name="EstimatedServiceDays" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceTransactionId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HazardousFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="OceanInitialFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="OceanFuelSurcharge" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="OceanInsideDeliveryFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="OceanLiftGateDeliveryFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="OceanNonCommercialDeliveryFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="OceanNotifyFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="OceanResidentialDeliveryFee" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProtectFromFreeze" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CarrierAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FreePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Term" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RateMyShipmentWithCarrierLiability">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="quoteInfo" type="tns:QuoteInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="quoteItems" type="tns:ArrayOfQuoteItemsInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RateMyShipmentWithCarrierLiabilityResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RateMyShipmentWithCarrierLiabilityResult" type="tns:ArrayOfQuoteRatesWithCarrierLiability" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfQuoteRatesWithCarrierLiability">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="QuoteRatesWithCarrierLiability" nillable="true" type="tns:QuoteRatesWithCarrierLiability" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="QuoteRatesWithCarrierLiability">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:QuoteRates">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="CarrierLiablityNew" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="CarrierLiablityUsed" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="RateMyShipmentForASPClients">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlQuoteInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="xmlQuoteItemsInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RateMyShipmentForASPClientsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RateMyShipmentForASPClientsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmShipment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ConfirmQuoteRequestInfo" nillable="true" type="tns:ConfirmQuoteRequestInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ConfirmQuoteRequestInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ShipperAddress" type="tns:ShipmentAddress" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsigneeAddress" type="tns:ShipmentAddress" />
+          <s:element minOccurs="0" maxOccurs="1" name="QuoteItems" type="tns:ArrayOfQuoteItemsInfo" />
+          <s:element minOccurs="1" maxOccurs="1" name="ShipmentDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipmentReadyTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipmentCloseTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PickUpRemarks" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryRemarks" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PONo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RefrenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerBOL" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgreementAcceptance" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="SelectedCarrierCodeForShipment" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceTransactionId" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ShipmentAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ShipmentAddressId" type="tns:IntClass" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipperId" type="tns:IntClass" />
+          <s:element minOccurs="1" maxOccurs="1" name="AddressType" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Street" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactPerson" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneExtention" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsRegistered" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BillingAddressNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sAddress1" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IntClass">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Value" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConfirmShipmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConfirmShipmentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmShipmentForTMSCustomer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ConfirmQuoteRequestInfoForTMSCustomer" nillable="true" type="tns:ConfirmQuoteRequestInfoForTMSCustomer" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ConfirmQuoteRequestInfoForTMSCustomer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ShipperAddress" type="tns:ShipmentAddressForTMS" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsigneeAddress" type="tns:ShipmentAddressForTMS" />
+          <s:element minOccurs="0" maxOccurs="1" name="QuoteItemsForTMS" type="tns:ArrayOfQuoteItemsInfoForTMSCustomer" />
+          <s:element minOccurs="1" maxOccurs="1" name="ShipmentDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipmentReadyTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipmentCloseTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PickUpRemarks" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryRemarks" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PONo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RefrenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerBOL" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgreementAcceptance" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="SelectedCarrierCodeForShipment" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceTransactionId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProNo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ShipmentAddressForTMS">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ShipmentAddressId" type="tns:IntClass" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipperId" type="tns:IntClass" />
+          <s:element minOccurs="1" maxOccurs="1" name="AddressType" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Street" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Phone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactPerson" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneExtention" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsRegistered" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BillingAddressNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sAddress1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AddressCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfQuoteItemsInfoForTMSCustomer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="QuoteItemsInfoForTMSCustomer" nillable="true" type="tns:QuoteItemsInfoForTMSCustomer" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="QuoteItemsInfoForTMSCustomer">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="FAKClass" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemWeight" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemHeight" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemLength" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemWidth" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="PackageTypeName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PackageTypeId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProductId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemNmfc" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Hazardous" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pieces" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PieceDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PalletCount" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConfirmShipmentForTMSCustomerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConfirmShipmentForTMSCustomerResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmShipmentWithTermInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ConfirmQuoteRequestInfo" nillable="true" type="tns:ConfirmQuoteRequestInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmShipmentWithTermInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConfirmShipmentWithTermInfoResult" type="tns:ShipmentConfirmation" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ShipmentConfirmation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="BolNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DestinationCarrierLocation" type="tns:CarrierAddress" />
+          <s:element minOccurs="1" maxOccurs="1" name="OriginCarrierLocation" type="tns:CarrierAddress" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ConfirmShipmentForASPClients">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlConfirmationInfo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmShipmentForASPClientsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConfirmShipmentForASPClientsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTerminalAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="originZipCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="destinationZipCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="carrierCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTerminalAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTerminalAddressResult" type="tns:ArrayOfCarrierAddress" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCarrierAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CarrierAddress" type="tns:CarrierAddress" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetShipmentAddresses">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="originZipCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="destinationZipCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetShipmentAddressesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetShipmentAddressesResult" type="tns:ArrayOfShipmentAddress" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfShipmentAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ShipmentAddress" nillable="true" type="tns:ShipmentAddress" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetShipmentAddressesForASPClient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="originZipCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="destinationZipCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetShipmentAddressesForASPClientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetShipmentAddressesForASPClientResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllMyInvoices">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllMyInvoicesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllMyInvoicesResult" type="tns:ArrayOfInvoices" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInvoices">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Invoices" nillable="true" type="tns:Invoices" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Invoices">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="BOLNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PRONumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PONumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BOLDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="DueDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="InvoiceDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="OriginalAmount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="PayAmount" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Balance" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProNo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAllMyInvoicesForASPClient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllMyInvoicesForASPClientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllMyInvoicesForASPClientResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSingleInvoice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bolNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSingleInvoiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSingleInvoiceResult" type="tns:Invoices" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSingleInvoiceForASPClient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bolNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSingleInvoiceForASPClientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSingleInvoiceForASPClientResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMyShipmentTrack">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="trackingNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="isBol" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMyShipmentTrackResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMyShipmentTrackResult" type="tns:TrackingInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TrackingInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ShipmentIdentificationNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipperCompanyName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipperStreet" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipperCity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipperStateZip" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsigneeCompanyName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsigneeName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsigneeStreet" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsigneeCity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsigneeStateZip" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Quantity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Weight" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Remarks" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Date" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TrackingError" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TrackingErrorValue" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Location" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LocationState" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetMyShipmentTrackForASPClient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="loginName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="trackingNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="isBol" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMyShipmentTrackForASPClientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMyShipmentTrackForASPClientResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RateMyShipmentExel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="quoteInfo" type="tns:QuoteInfo" />
+            <s:element minOccurs="0" maxOccurs="1" name="exelKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ConfirmQuoteRequestExel" nillable="true" type="tns:ConfirmQuoteRequestExel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ConfirmQuoteRequestExel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ShipperAddress" type="tns:ShipmentAddress" />
+          <s:element minOccurs="0" maxOccurs="1" name="ConsigneeAddress" type="tns:ShipmentAddress" />
+          <s:element minOccurs="0" maxOccurs="1" name="FinalAddress" type="tns:ShipmentAddress" />
+          <s:element minOccurs="0" maxOccurs="1" name="QuoteItems" type="tns:ArrayOfQuoteItemsInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="LineItemExel" type="tns:ArrayOfLineItemsExel" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExtendedItems" type="tns:ExelShipmentExtended" />
+          <s:element minOccurs="1" maxOccurs="1" name="ShipmentDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipmentReadyTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ShipmentCloseTime" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PickUpRemarks" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryRemarks" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PONo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RefrenceNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerBOL" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgreementAcceptance" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="SelectedCarrierCodeForShipment" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceTransactionId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderType" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfLineItemsExel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LineItemsExel" nillable="true" type="tns:LineItemsExel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LineItemsExel">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="FAKClass" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemWeight" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemHeight" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemLength" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="ItemWidth" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="PackageTypeName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PackageTypeId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProductId" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemNmfc" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Hazardous" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pieces" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PieceDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PalletCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="LineItemId" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cost" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Revenue" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ExelShipmentExtended">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="OrderType" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BrandCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AlternateOrderNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SaleDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="DeliveryDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="DeliverNotBefore" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RateMyShipmentExelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RateMyShipmentExelResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="RateMyShipmentSoapIn">
+    <wsdl:part name="parameters" element="tns:RateMyShipment" />
+  </wsdl:message>
+  <wsdl:message name="RateMyShipmentSoapOut">
+    <wsdl:part name="parameters" element="tns:RateMyShipmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="RateMyShipmentWithCarrierLiabilitySoapIn">
+    <wsdl:part name="parameters" element="tns:RateMyShipmentWithCarrierLiability" />
+  </wsdl:message>
+  <wsdl:message name="RateMyShipmentWithCarrierLiabilitySoapOut">
+    <wsdl:part name="parameters" element="tns:RateMyShipmentWithCarrierLiabilityResponse" />
+  </wsdl:message>
+  <wsdl:message name="RateMyShipmentForASPClientsSoapIn">
+    <wsdl:part name="parameters" element="tns:RateMyShipmentForASPClients" />
+  </wsdl:message>
+  <wsdl:message name="RateMyShipmentForASPClientsSoapOut">
+    <wsdl:part name="parameters" element="tns:RateMyShipmentForASPClientsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmShipmentSoapIn">
+    <wsdl:part name="parameters" element="tns:ConfirmShipment" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmShipmentSoapOut">
+    <wsdl:part name="parameters" element="tns:ConfirmShipmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmShipmentForTMSCustomerSoapIn">
+    <wsdl:part name="parameters" element="tns:ConfirmShipmentForTMSCustomer" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmShipmentForTMSCustomerSoapOut">
+    <wsdl:part name="parameters" element="tns:ConfirmShipmentForTMSCustomerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmShipmentWithTermInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:ConfirmShipmentWithTermInfo" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmShipmentWithTermInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:ConfirmShipmentWithTermInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmShipmentForASPClientsSoapIn">
+    <wsdl:part name="parameters" element="tns:ConfirmShipmentForASPClients" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmShipmentForASPClientsSoapOut">
+    <wsdl:part name="parameters" element="tns:ConfirmShipmentForASPClientsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTerminalAddressSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTerminalAddress" />
+  </wsdl:message>
+  <wsdl:message name="GetTerminalAddressSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTerminalAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetShipmentAddressesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetShipmentAddresses" />
+  </wsdl:message>
+  <wsdl:message name="GetShipmentAddressesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetShipmentAddressesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetShipmentAddressesForASPClientSoapIn">
+    <wsdl:part name="parameters" element="tns:GetShipmentAddressesForASPClient" />
+  </wsdl:message>
+  <wsdl:message name="GetShipmentAddressesForASPClientSoapOut">
+    <wsdl:part name="parameters" element="tns:GetShipmentAddressesForASPClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllMyInvoicesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllMyInvoices" />
+  </wsdl:message>
+  <wsdl:message name="GetAllMyInvoicesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllMyInvoicesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllMyInvoicesForASPClientSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllMyInvoicesForASPClient" />
+  </wsdl:message>
+  <wsdl:message name="GetAllMyInvoicesForASPClientSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllMyInvoicesForASPClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSingleInvoiceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSingleInvoice" />
+  </wsdl:message>
+  <wsdl:message name="GetSingleInvoiceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSingleInvoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSingleInvoiceForASPClientSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSingleInvoiceForASPClient" />
+  </wsdl:message>
+  <wsdl:message name="GetSingleInvoiceForASPClientSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSingleInvoiceForASPClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMyShipmentTrackSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMyShipmentTrack" />
+  </wsdl:message>
+  <wsdl:message name="GetMyShipmentTrackSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMyShipmentTrackResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMyShipmentTrackForASPClientSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMyShipmentTrackForASPClient" />
+  </wsdl:message>
+  <wsdl:message name="GetMyShipmentTrackForASPClientSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMyShipmentTrackForASPClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="RateMyShipmentExelSoapIn">
+    <wsdl:part name="parameters" element="tns:RateMyShipmentExel" />
+  </wsdl:message>
+  <wsdl:message name="RateMyShipmentExelSoapOut">
+    <wsdl:part name="parameters" element="tns:RateMyShipmentExelResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="RateMyShipment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Using this service any carrierrate user can give his shipment details.this service will return full details of carrier charging lowest rate for given shipment locations, shipment specifications and as per avalied services.</wsdl:documentation>
+      <wsdl:input message="tns:RateMyShipmentSoapIn" />
+      <wsdl:output message="tns:RateMyShipmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RateMyShipmentWithCarrierLiability">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Using this service any carrierrate user can give his shipment details.this service will return full details of carrier charging lowest rate for given shipment locations, shipment specifications and as per avalied services.</wsdl:documentation>
+      <wsdl:input message="tns:RateMyShipmentWithCarrierLiabilitySoapIn" />
+      <wsdl:output message="tns:RateMyShipmentWithCarrierLiabilitySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RateMyShipmentForASPClients">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This service has been created for Client using script language for Accessing carrierrate Service.It exposese same functionality for rate shipment.</wsdl:documentation>
+      <wsdl:input message="tns:RateMyShipmentForASPClientsSoapIn" />
+      <wsdl:output message="tns:RateMyShipmentForASPClientsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmShipment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This is functionality for confirmation of shipment to transfer after confirmation it returns the bol  generated for this shipment. ConfirmQuoteRequestInfo object containse some additional info about shipemnt transfer like  address to pickup shipment from  and transer to, shipment ready date and time for pick up, time  for delivery, and additional remakrs with shipment etc.</wsdl:documentation>
+      <wsdl:input message="tns:ConfirmShipmentSoapIn" />
+      <wsdl:output message="tns:ConfirmShipmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmShipmentForTMSCustomer">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This is functionality for confirmation of shipment to transfer after confirmation it returns the bol  generated for this shipment. ConfirmQuoteRequestInfo object containse some additional info about shipemnt transfer like  address to pickup shipment from  and transer to, shipment ready date and time for pick up, time  for delivery, and additional remakrs with shipment etc.</wsdl:documentation>
+      <wsdl:input message="tns:ConfirmShipmentForTMSCustomerSoapIn" />
+      <wsdl:output message="tns:ConfirmShipmentForTMSCustomerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmShipmentWithTermInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This is functionality for confirmation of shipment to transfer after confirmation it returns the bol generated for this shipment, and the carrier origin and destination address.ConfirmQuoteRequestInfo object contains some additional info about shipment transfer like theaddress to pickup shipment from and transer to, shipment ready date and time for pick up, time  for delivery, and additional remakrs with shipment etc.</wsdl:documentation>
+      <wsdl:input message="tns:ConfirmShipmentWithTermInfoSoapIn" />
+      <wsdl:output message="tns:ConfirmShipmentWithTermInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmShipmentForASPClients">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"> This is functionality for confirmation of shipment to transfer after confirmation it returns the bol  generated for this shipment for client haivng scripting support only.  ConfirmQuoteRequestInfo object containse some additional info about shipemnt transfer like  address to pickup shipment from  and transer to, shipment ready date and time for pick up, time  for delivery, and additional remakrs with shipment etc.</wsdl:documentation>
+      <wsdl:input message="tns:ConfirmShipmentForASPClientsSoapIn" />
+      <wsdl:output message="tns:ConfirmShipmentForASPClientsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTerminalAddress">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This function returns terminal addresses existing in origin and destination for given carrier..</wsdl:documentation>
+      <wsdl:input message="tns:GetTerminalAddressSoapIn" />
+      <wsdl:output message="tns:GetTerminalAddressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetShipmentAddresses">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This funcation returns shipment addresses existing in origin and destination cities for given shipper.</wsdl:documentation>
+      <wsdl:input message="tns:GetShipmentAddressesSoapIn" />
+      <wsdl:output message="tns:GetShipmentAddressesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetShipmentAddressesForASPClient">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This funcation returns shipment addresses existing in origin and destination cities for given shipper.Should be used by Asp Clients.</wsdl:documentation>
+      <wsdl:input message="tns:GetShipmentAddressesForASPClientSoapIn" />
+      <wsdl:output message="tns:GetShipmentAddressesForASPClientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMyInvoices">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gives all invoice avaliable till date for given user name.</wsdl:documentation>
+      <wsdl:input message="tns:GetAllMyInvoicesSoapIn" />
+      <wsdl:output message="tns:GetAllMyInvoicesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMyInvoicesForASPClient">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gives all invoice avaliable till date for given user name should be used by client using ASP.</wsdl:documentation>
+      <wsdl:input message="tns:GetAllMyInvoicesForASPClientSoapIn" />
+      <wsdl:output message="tns:GetAllMyInvoicesForASPClientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSingleInvoice">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"> Gives invoice for given bol number.</wsdl:documentation>
+      <wsdl:input message="tns:GetSingleInvoiceSoapIn" />
+      <wsdl:output message="tns:GetSingleInvoiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSingleInvoiceForASPClient">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gives all invoice avaliable till date for given user name  should be used by client using ASP.</wsdl:documentation>
+      <wsdl:input message="tns:GetSingleInvoiceForASPClientSoapIn" />
+      <wsdl:output message="tns:GetSingleInvoiceForASPClientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMyShipmentTrack">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Based on given tracking no returns current status of a shipment done by user.</wsdl:documentation>
+      <wsdl:input message="tns:GetMyShipmentTrackSoapIn" />
+      <wsdl:output message="tns:GetMyShipmentTrackSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMyShipmentTrackForASPClient">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Basked on given tracking no returns current status of a shipment done by user.Should be used by client using ASP.</wsdl:documentation>
+      <wsdl:input message="tns:GetMyShipmentTrackForASPClientSoapIn" />
+      <wsdl:output message="tns:GetMyShipmentTrackForASPClientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RateMyShipmentExel">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">This service has been created for Client using script language for Accessing carrierrate Service.It rates the shipment and books the shipment with lowest rate among available rates.</wsdl:documentation>
+      <wsdl:input message="tns:RateMyShipmentExelSoapIn" />
+      <wsdl:output message="tns:RateMyShipmentExelSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RateMyShipment">
+      <soap:operation soapAction="http://carrierate.com/RateMyShipment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RateMyShipmentWithCarrierLiability">
+      <soap:operation soapAction="http://carrierate.com/RateMyShipmentWithCarrierLiability" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RateMyShipmentForASPClients">
+      <soap:operation soapAction="http://carrierate.com/RateMyShipmentForASPClients" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmShipment">
+      <soap:operation soapAction="http://carrierate.com/ConfirmShipment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmShipmentForTMSCustomer">
+      <soap:operation soapAction="http://carrierate.com/ConfirmShipmentForTMSCustomer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmShipmentWithTermInfo">
+      <soap:operation soapAction="http://carrierate.com/ConfirmShipmentWithTermInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmShipmentForASPClients">
+      <soap:operation soapAction="http://carrierate.com/ConfirmShipmentForASPClients" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTerminalAddress">
+      <soap:operation soapAction="http://carrierate.com/GetTerminalAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShipmentAddresses">
+      <soap:operation soapAction="http://carrierate.com/GetShipmentAddresses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShipmentAddressesForASPClient">
+      <soap:operation soapAction="http://carrierate.com/GetShipmentAddressesForASPClient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMyInvoices">
+      <soap:operation soapAction="http://carrierate.com/GetAllMyInvoices" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMyInvoicesForASPClient">
+      <soap:operation soapAction="http://carrierate.com/GetAllMyInvoicesForASPClient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSingleInvoice">
+      <soap:operation soapAction="http://carrierate.com/GetSingleInvoice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSingleInvoiceForASPClient">
+      <soap:operation soapAction="http://carrierate.com/GetSingleInvoiceForASPClient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMyShipmentTrack">
+      <soap:operation soapAction="http://carrierate.com/GetMyShipmentTrack" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMyShipmentTrackForASPClient">
+      <soap:operation soapAction="http://carrierate.com/GetMyShipmentTrackForASPClient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RateMyShipmentExel">
+      <soap:operation soapAction="http://carrierate.com/RateMyShipmentExel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RateMyShipment">
+      <soap12:operation soapAction="http://carrierate.com/RateMyShipment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RateMyShipmentWithCarrierLiability">
+      <soap12:operation soapAction="http://carrierate.com/RateMyShipmentWithCarrierLiability" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RateMyShipmentForASPClients">
+      <soap12:operation soapAction="http://carrierate.com/RateMyShipmentForASPClients" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmShipment">
+      <soap12:operation soapAction="http://carrierate.com/ConfirmShipment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmShipmentForTMSCustomer">
+      <soap12:operation soapAction="http://carrierate.com/ConfirmShipmentForTMSCustomer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmShipmentWithTermInfo">
+      <soap12:operation soapAction="http://carrierate.com/ConfirmShipmentWithTermInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmShipmentForASPClients">
+      <soap12:operation soapAction="http://carrierate.com/ConfirmShipmentForASPClients" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTerminalAddress">
+      <soap12:operation soapAction="http://carrierate.com/GetTerminalAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShipmentAddresses">
+      <soap12:operation soapAction="http://carrierate.com/GetShipmentAddresses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetShipmentAddressesForASPClient">
+      <soap12:operation soapAction="http://carrierate.com/GetShipmentAddressesForASPClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMyInvoices">
+      <soap12:operation soapAction="http://carrierate.com/GetAllMyInvoices" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMyInvoicesForASPClient">
+      <soap12:operation soapAction="http://carrierate.com/GetAllMyInvoicesForASPClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSingleInvoice">
+      <soap12:operation soapAction="http://carrierate.com/GetSingleInvoice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSingleInvoiceForASPClient">
+      <soap12:operation soapAction="http://carrierate.com/GetSingleInvoiceForASPClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMyShipmentTrack">
+      <soap12:operation soapAction="http://carrierate.com/GetMyShipmentTrack" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMyShipmentTrackForASPClient">
+      <soap12:operation soapAction="http://carrierate.com/GetMyShipmentTrackForASPClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RateMyShipmentExel">
+      <soap12:operation soapAction="http://carrierate.com/RateMyShipmentExel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Services offered by carrierrate.com.</wsdl:documentation>
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="http://stg.carrierrate.com/RateQuoteService/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
+      <soap12:address location="http://stg.carrierrate.com/RateQuoteService/service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
